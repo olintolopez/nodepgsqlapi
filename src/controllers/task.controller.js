@@ -3,10 +3,11 @@ import Task from '../models/Task';
 
 export async function createTask(req, res) {
     try {
-        const { name, done, projectId } = req.body;
+
+        const { name, done, projectid } = req.body;
         console.log(req.body);
         const newTask = await Task.create({
-            projectId,
+            projectid,
             name,
             done
         }, {
@@ -33,13 +34,14 @@ export async function getTasks(req, res) {
 
 export async function updateTask(req, res) {
     const { id } = req.params;
-    // SE LE CAMBIO projectId por projectid //
+    
     const { projectid, name, done } = req.body;
     try {
         const task = await Task.findOne({
             attributes: ['name', 'projectid', 'done', 'id'],
             where: { id }
         });
+        
         const updatedTask = await Task.update(
             { name, done, projectid },
             { where: { id } }
@@ -82,7 +84,10 @@ export async function getTaskByProject(req, res) {
     try {
         const tasks = await Task.findAll({
             attributes: ['id', 'projectid', 'name', 'done'],
-            where: { projectid }
+            where: { projectid },
+            order: [
+                ['id', 'DESC']
+            ]
         });
         res.json({
             tasks
