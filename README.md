@@ -30,4 +30,4 @@ This is a simple REST API using Javascript Technologies and PostgreSQL.
             └── tasks.js
 
     6 directories, 13 files
-```
+```The file src/database/database.js is the file, that contains all parameters for your conection. You must change this parameters with yours. 
